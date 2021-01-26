@@ -8,11 +8,12 @@ int main() {
         //std::string s = "Declared";
         
         case 1:
-            std::cout << "one!" << std::endl;
-            return 0;
+//            int s = 10;
+        //    break;
+
         default:
-            std::cout << "not one!" << std::endl;
-            return 0;
-        //std::cout << s << std::endl;
+//            std::cout << "Try showing s in default case -> " << s << std::endl;
+            break;
+
     }
 }
