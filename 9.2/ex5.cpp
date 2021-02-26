@@ -22,5 +22,4 @@ int main() {
     cout << "array[2] " << array[2] << endl;
     cout << "array[3] " << array[-1] << endl; 
     cout << "array[4] " << array[-10] << endl; 
-
 }
