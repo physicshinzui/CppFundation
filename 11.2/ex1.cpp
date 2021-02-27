@@ -12,6 +12,10 @@ class DateClass {
         int m_day{};
         int m_month{};
         int m_year{};
+
+        void print() {
+            cout << m_day << '.' << m_month << '.' << m_year << endl;
+        };
 }; //<- don't forget to add a semicolon. 
 
 //passed by reference because not want to copy struct which can be large.
@@ -28,6 +32,9 @@ int main() {
     //in C++11, struct can be initialised as
     DateStruct today {26, 2, 2021};
     print(today);
+
     DateClass yesterday {25, 2, 2021};
     printClass(yesterday);
+    //Rather than this, the following is better.  
+    yesterday.print();
 }
