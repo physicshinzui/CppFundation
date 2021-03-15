@@ -7,5 +7,4 @@ int main() {
     std::cout << &var << std::endl;
     std::cout << typeid(var).name() << std::endl;
     std::cout << typeid(&var).name() << std::endl;
-    
 }
