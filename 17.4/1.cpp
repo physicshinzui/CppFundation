@@ -13,7 +13,7 @@ public:
     int getID() const {return  _id;} 
 };
 
-class Derived : Base
+class Derived : public Base
 {
 public:
     double _cost{};
