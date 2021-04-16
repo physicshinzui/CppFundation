@@ -15,13 +15,13 @@ int main()
     cout << "z = " << z << endl;
     cout << "How to avoid: adding from smaller numbers." << endl;
 
-    cout << "\n~ Cancellation of significant digits ~ " << endl;
-    float a {0.123456789};
+    cout << "\n~ Cancellation of significant digits (can accumulate error) ~ "  << endl;
+    float a {0.123456789}; //float: ~8 digits; double: ~16 digits
     float b {0.123456788};
     float c {a - b};
-    printf("a = %1.9lf  \n", a);
-    printf("b = %1.9lf \n", b);
-    printf("a - b  = %1.9lf \n", c);
-
+    printf("a = %.9lf  \n", a);
+    printf("b = %.9lf \n", b);
+    printf("a - b  = %.9lf \n", c);
+    cout << "How to avoid: (i) not use substraction. (2) make the result larger." << endl; 
 
 }
