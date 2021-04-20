@@ -36,15 +36,19 @@ void metropolice()
 #endif
         double r = static_cast<double>(std::rand()) / RAND_MAX; // [0.0, 1.0]
         double prob = exp(-dE/KT);
-        if (dE <= 0.0 || prob > r)
+        if (dE <= 0.0)
         {
             std::cout <<  x_suc << " " << dE << "" << x_suc << std::endl;  
             xi = x_suc;
             Q_ave += prob * xi; 
             std::cout << Q_ave << std::endl;
         }
-        else
+        else if (prob > r)
         {
+            xi = x_suc;
+        }
+        else
+        {}
 #ifdef _DBG
             std::cout << "Reject" << std::endl;
 #endif
