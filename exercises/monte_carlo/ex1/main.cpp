@@ -4,62 +4,54 @@ Write metropolice algorithm to generate probability distribution of 1D harmonic 
 */
 #include <iostream> 
 #include <cmath> 
+#include <fstream>
 
 double E_harmonic(double x, double x_eq, double k_spring = 1.0)
 {
-    return - 0.5 * k_spring * (x - x_eq) * (x - x_eq);
+    return 0.5 * k_spring * (x - x_eq) * (x - x_eq);
 }
 
-void metropolice()
+void metropolisHasting(int n_steps)
 {
     //parameters 
-    int n_steps {10};
     double KT {1.0};
-    
-    //Initialisation
-    double xi {1.0};
-    double x_eq {0.0};
-    double dx{};
-    double Q_ave{0.0};
-    double E_pre = E_harmonic(xi, x_eq);
-    int n_accept {0};
+    double c {1.0};
 
+    //Initialisation
+    double xi {0.1};
+    double x_eq {1.0};
+    double dx{};
+    int    n_accept {0};
+
+    std::ofstream trajfile;
+    trajfile.open("traj.dat");
+
+    std::srand(10);
     for (int i{0}; i < n_steps; ++i) {
         dx = static_cast<double>(std::rand()) / RAND_MAX - 0.5; //ranging [-0.5, 0.5]
-        //std::cout << "Displacement = " << dx << std::endl;
-        double E_pre = E_harmonic(xi, x_eq);
+        dx = c * dx;
         double x_suc = xi + dx;
+        double E_pre = E_harmonic(xi   , x_eq);        
         double E_suc = E_harmonic(x_suc, x_eq);
         double dE = E_suc - E_pre;
-#ifdef _DBG        
-        std::cout << "x+dx = " << dx << "dE = " << dE << std::endl;
-#endif
+
         double r = static_cast<double>(std::rand()) / RAND_MAX; // [0.0, 1.0]
-        double prob = exp(-dE/KT);
-        if (dE <= 0.0)
+
+        if (dE <= 0.0 || exp(-dE/KT) >= r)
         {
-            std::cout <<  x_suc << " " << dE << "" << x_suc << std::endl;  
+            trajfile <<  x_suc << ' ' << E_suc  << '\n';
             xi = x_suc;
-            Q_ave += prob * xi; 
-            std::cout << Q_ave << std::endl;
+            ++n_accept;
         }
-        else if (prob > r)
-        {
-            xi = x_suc;
-        }
-        else
-        {}
-#ifdef _DBG
-            std::cout << "Reject" << std::endl;
-#endif
-        }
+        else { }
     }
-//    Q_ave; 
-    std::cout << Q_ave << std::endl;
+    std::cout << "Accept ratio = " << (double)n_accept / n_steps << std::endl;
+    trajfile.close();
 }
 
 int main()
 {
-    metropolice();
+    int n_steps {10000};
+    metropolisHasting(n_steps);
     return 0;
 }
